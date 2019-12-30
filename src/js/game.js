@@ -1,4 +1,3 @@
-"use strict";
 
 let ticTakToe = {
     gameTableElement: document.getElementById('game'),
@@ -178,4 +177,4 @@ let ticTakToe = {
     },
 };
 
-ticTakToe.init();
+export default ticTakToe;
