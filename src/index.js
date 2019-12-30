@@ -1,3 +1,14 @@
-import game from './js/game';
+import playfield from './js/playfield';
 
-game.init();
+
+/**
+ * Инициализация игры.
+ */
+function init() {
+    // Выводим все ячейки.
+    playfield.renderMap();
+    // Инициализируем обработчики событий.
+    playfield.initEventHandlers();
+}
+
+init();
