@@ -25,7 +25,6 @@ let playfield = {
      * Инициализация обработчиков событий.
      */
     initEventHandlers() {
-
         const cells = document.querySelectorAll('td');
         cells.forEach(cell => cell.addEventListener('click', event => this.cellClickHandler(event)));
     },
@@ -66,29 +65,18 @@ let playfield = {
     /**
      * Проверка что в ячейку не ставили значение (крестик или нолик).
      * @param {Event} event
-     * @param {HTMLElement} event.target
      * @returns {boolean} Вернет true, если ячейка пуста, иначе false.
      */
     isCellEmpty(event) {
-        // Получаем строку и колонку куда кликнули.
-        // let row = +event.target.dataset.row;
-        // let col = +event.target.dataset.col;
-
         return event.target.textContent === '';
     },
 
     /**
      * Заполняет ячейку в которую кликнул пользователь в событии event.
      * @param {Event} event
-     * @param {HTMLElement} event.target
+     * 
      */
     fillCell(event) {
-        // Получаем строку и колонку куда кликнули.
-        let row = +event.target.dataset.row;
-        let col = +event.target.dataset.col;
-
-        // Заполняем ячейку и ставим значение в массиве, в свойстве mapValues.
-        // game.mapValues[row][col] = game.phase;
         event.target.textContent = game.phase;
     },
 

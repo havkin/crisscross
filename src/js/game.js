@@ -13,10 +13,11 @@ let ticTakToe = {
 
     /**
      * Проверка есть ли выигрышная ситуация на карте.
+     * @param {event.target} ячейка по которой совершен ход
      * @returns {boolean} Вернет true, если игра выиграна, иначе false.
      */
     hasWon(center) {
-
+        // направления линий для проверки: горизонталь, вертикаль, две диагонали
         const directions = [{
                 x: 1,
                 y: 0
@@ -44,9 +45,9 @@ let ticTakToe = {
 
     /**
      * Проверка есть ли выигрышная ситуация на линии.
-     * @param {{x: int, y: int}} a 1-ая ячейка.
-     * @param {{x: int, y: int}} b 2-ая ячейка.
-     * @param {{x: int, y: int}} c 3-я ячейка.
+     * @param {direction: {x: int, y: int}} направление линии
+     * @param {cX: int} координата X ячейки, в которую совершен ход
+     * @param {cY: int} координата Y ячейки, в которую совершен ход
      * @returns {boolean} Вернет true, если линия выиграна, иначе false.
      */
     isLineWon(direction, cX, cY) {
@@ -65,11 +66,22 @@ let ticTakToe = {
         return lineLength > 4;
     },
 
+
+
+    /**
+     * Считаем длину отрезка заполненного знаком текущего хода по заданному направлению от ячейки, по которой совершен ход
+     *
+     * @param {x: int} характеристика направления по оси X
+     * @param {y: int} характеристика направления по оси Y
+     * @param {cX: int} координата X ячейки, в которую совершен ход
+     * @param {cY: int} координата Y ячейки, в которую совершен ход
+     * @returns {int}  возвращает длину отрезка
+     */
     countSegment(x, y, cX, cY) {
         let segment = 0;
         for (let i = 1; i < 5; i++) {
 
-            const nextCell = document.querySelector(`[data-row="${cY + i * y}"][data-col="${cX + x *i}"]`)
+            const nextCell = document.querySelector(`[data-row="${cY + i * y}"][data-col="${cX + i * x}"]`)
 
             if (nextCell != null && nextCell.innerText === this.phase) {
                 segment++;
@@ -99,7 +111,7 @@ let ticTakToe = {
      * Меняет фигуру (крестик или нолик).
      */
     togglePhase() {
-        this.phase = this.phase === 'X' ? '0' : 'X';
+        this.phase = this.phase === 'X' ? 'O' : 'X';
     },
 };
 
