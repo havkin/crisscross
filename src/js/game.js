@@ -1,12 +1,6 @@
-
 let ticTakToe = {
- 
+
     status: 'playing',
-    mapValues: [
-        ['', '', ''],
-        ['', '', ''],
-        ['', '', ''],
-    ],
     phase: 'X',
 
     /**
@@ -21,18 +15,31 @@ let ticTakToe = {
      * Проверка есть ли выигрышная ситуация на карте.
      * @returns {boolean} Вернет true, если игра выиграна, иначе false.
      */
-    hasWon() {
+    hasWon(center) {
 
-        return this.isLineWon({ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 2, y: 0 }) ||
-            this.isLineWon({ x: 0, y: 1 }, { x: 1, y: 1 }, { x: 2, y: 1 }) ||
-            this.isLineWon({ x: 0, y: 2 }, { x: 1, y: 2 }, { x: 2, y: 2 }) ||
+        const directions = [{
+                x: 1,
+                y: 0
+            },
+            {
+                x: 0,
+                y: 1
+            },
+            {
+                x: 1,
+                y: 1
+            },
+            {
+                x: 1,
+                y: -1
+            }
+        ];
 
-            this.isLineWon({ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }) ||
-            this.isLineWon({ x: 1, y: 0 }, { x: 1, y: 1 }, { x: 1, y: 2 }) ||
-            this.isLineWon({ x: 2, y: 0 }, { x: 2, y: 1 }, { x: 2, y: 2 }) ||
+        const cY = +center.dataset.row;
+        const cX = +center.dataset.col;
 
-            this.isLineWon({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }) ||
-            this.isLineWon({ x: 0, y: 2 }, { x: 1, y: 1 }, { x: 2, y: 0 });
+        return directions.some(direction => this.isLineWon(direction, cX, cY));
+
     },
 
     /**
@@ -42,9 +49,35 @@ let ticTakToe = {
      * @param {{x: int, y: int}} c 3-я ячейка.
      * @returns {boolean} Вернет true, если линия выиграна, иначе false.
      */
-    isLineWon(a, b, c) {
-        let value = this.mapValues[a.y][a.x] + this.mapValues[b.y][b.x] + this.mapValues[c.y][c.x];
-        return value === 'XXX' || value === '000';
+    isLineWon(direction, cX, cY) {
+        let lineLength = 1;
+
+        let x = direction.x;
+        let y = direction.y;
+
+        lineLength += this.countSegment(x, y, cX, cY);
+
+        x *= -1;
+        y *= -1;
+
+        lineLength += this.countSegment(x, y, cX, cY);
+
+        return lineLength > 4;
+    },
+
+    countSegment(x, y, cX, cY) {
+        let segment = 0;
+        for (let i = 1; i < 5; i++) {
+
+            const nextCell = document.querySelector(`[data-row="${cY + i * y}"][data-col="${cX + x *i}"]`)
+
+            if (nextCell != null && nextCell.innerText === this.phase) {
+                segment++;
+            } else {
+                break;
+            }
+        }
+        return segment;
     },
 
     /**

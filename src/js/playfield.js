@@ -1,7 +1,7 @@
 import game from './game';
 
 let playfield = {
-    fieldSize: 3,
+    fieldSize: 20,
     gameTableElement: document.getElementById('game'),
 
 
@@ -25,8 +25,9 @@ let playfield = {
      * Инициализация обработчиков событий.
      */
     initEventHandlers() {
-        // Ставим обработчик, при клике на таблицу вызовется функция this.cellClickHandler.
-        this.gameTableElement.addEventListener('click', event => this.cellClickHandler(event));
+
+        const cells = document.querySelectorAll('td');
+        cells.forEach(cell => cell.addEventListener('click', event => this.cellClickHandler(event)));
     },
 
     /**
@@ -42,7 +43,7 @@ let playfield = {
         // Заполняем ячейку.
         this.fillCell(event);
         // Если кто-то выиграл, заходим в if.
-        if (game.hasWon()) {
+        if (game.hasWon(event.target)) {
             // Ставим статус в "остановлено".
             game.setStatusStopped();
             // Сообщаем о победе пользователя.
@@ -56,21 +57,10 @@ let playfield = {
     /**
      * Проверка был ли корректный клик, что описан в событии event.
      * @param {Event} event
-     * @returns {boolean} Вернет true в случае если статус игры "играем", клик что описан в объекте event был
-     * по ячейке и ячейка куда был произведен клик был по пустой ячейке.
+     * @returns {boolean} Вернет true в случае если статус игры "играем", клик был по пустой ячейке.
      */
     isCorrectClick(event) {
-        return game.isStatusPlaying() && this.isClickByCell(event) && this.isCellEmpty(event);
-    },
-
-    /**
-     * Проверка что клик был по ячейке.
-     * @param {Event} event
-     * @param {HTMLElement} event.target
-     * @returns {boolean} Вернет true, если клик был по ячейке, иначе false.
-     */
-    isClickByCell(event) {
-        return event.target.tagName === 'TD';
+        return game.isStatusPlaying() && this.isCellEmpty(event);
     },
 
     /**
@@ -81,10 +71,10 @@ let playfield = {
      */
     isCellEmpty(event) {
         // Получаем строку и колонку куда кликнули.
-        let row = +event.target.dataset.row;
-        let col = +event.target.dataset.col;
+        // let row = +event.target.dataset.row;
+        // let col = +event.target.dataset.col;
 
-        return game.mapValues[row][col] === '';
+        return event.target.textContent === '';
     },
 
     /**
@@ -98,7 +88,7 @@ let playfield = {
         let col = +event.target.dataset.col;
 
         // Заполняем ячейку и ставим значение в массиве, в свойстве mapValues.
-        game.mapValues[row][col] = game.phase;
+        // game.mapValues[row][col] = game.phase;
         event.target.textContent = game.phase;
     },
 
