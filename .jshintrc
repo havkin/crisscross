@@ -1,3 +1,14 @@
 {
-  "esversion":6
+  "esversion":8,
+  "bitwise":true,
+  "curly":true,
+  "eqeqeq":true,
+  "futurehostile":true,
+  "latedef":"nofunc",
+  "leanswitch":true,
+  "maxcomplexity":10,
+  "undef":true,
+  "unused":"strict",
+  "eqnull":true,
+  "browser": true
 }

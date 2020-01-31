@@ -5,7 +5,7 @@ import playfield from './js/playfield';
  * Инициализация игры.
  */
 function init() {
-    // Выводим все ячейки.
+    // Отрисовываем игровое поле.
     playfield.renderMap();
     // Инициализируем обработчики событий.
     playfield.initEventHandlers();

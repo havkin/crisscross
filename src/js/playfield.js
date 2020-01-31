@@ -6,13 +6,18 @@ let playfield = {
 
 
     /**
-     * Вывод ячеек в html.
+     * метод формирует игровое поле в виде таблицы
+     * присваивает каждой ячейке координаты в dataset
      */
     renderMap() {
+
         for (let row = 0; row < this.fieldSize; row++) {
+
             const tr = document.createElement('tr');
             this.gameTableElement.appendChild(tr);
+
             for (let col = 0; col < this.fieldSize; col++) {
+
                 let td = document.createElement('td');
                 td.dataset.row = row.toString();
                 td.dataset.col = col.toString();
@@ -22,7 +27,7 @@ let playfield = {
     },
 
     /**
-     * Инициализация обработчиков событий.
+     * Метод вешает на каждую ячейку обработчик события click.
      */
     initEventHandlers() {
         const cells = document.querySelectorAll('td');
