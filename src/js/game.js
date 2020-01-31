@@ -3,6 +3,7 @@ let ticTakToe = {
     // начальные параметры игры
     status: 'playing',
     phase: 'X',
+    wonPhraseAlert: document.querySelector('#alert'),
 
     /**
      * Метод проверяет, что игра не закончена.
@@ -107,7 +108,7 @@ let ticTakToe = {
      */
     sayWonPhrase() {
         let figure = this.phase === 'X' ? 'Крестики' : 'Нолики';
-        alert(`${figure} выиграли!`); // TODO переделать вывод
+        this.wonPhraseAlert.innerText = `${figure} выиграли!`;
     },
 
     /**
