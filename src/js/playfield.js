@@ -3,6 +3,7 @@ import game from './game';
 let playfield = {
     fieldSize: 20,
     gameTableElement: document.getElementById('game'),
+    restartBtn: document.querySelector('#restart'),
 
 
     /**
@@ -28,10 +29,12 @@ let playfield = {
 
     /**
      * Метод вешает на каждую ячейку обработчик события click.
+     * и на кнопку перезапуска игры
      */
     initEventHandlers() {
         const cells = document.querySelectorAll('td');
         cells.forEach(cell => cell.addEventListener('click', event => this.cellClickHandler(event)));
+        this.restartBtn.addEventListener('click', this.restartGame);
     },
 
     /**
@@ -84,6 +87,15 @@ let playfield = {
     fillCell(event) {
         event.target.textContent = game.phase;
     },
+
+
+    restartGame () {
+        const cells = document.querySelectorAll('td');
+        cells.forEach(cell => cell.innerText = '');
+        game.wonPhraseAlert.innerText = '';
+        game.status = 'playing';
+        game.phase = 'X';
+    }
 
 };
 

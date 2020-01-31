@@ -1,6 +1,6 @@
 #game {
     border-collapse: collapse;
-    margin: 50px auto;
+    margin: 20px auto;
 }
 
 #game td {
@@ -17,4 +17,9 @@
     left: calc(50% - 200px);
     color: red;
     font-size: 40px;
+}
+
+#restart {
+    display: block;
+    margin: auto;
 }
