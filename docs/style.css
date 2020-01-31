@@ -1,0 +1,25 @@
+#game {
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+#game td {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+#alert {
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 200px);
+    color: red;
+    font-size: 40px;
+}
+
+#restart {
+    display: block;
+    margin: auto;
+}
